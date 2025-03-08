@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Poppins } from "next/font/google";
 import Swip from "@/Components/swiper";
+import React, { useState } from 'react';
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -25,7 +26,10 @@ const fadeInSection = {
   visible: { opacity: 1, y: 0, transition: { duration: 1.2 } },
 };
 
+
+
 export default function Home() {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <motion.main 
         variants={fadeInText}
@@ -33,38 +37,31 @@ export default function Home() {
         whileInView="visible"
         viewport={{ once: true }}
         className="bg-[url('/fondo2.jpg')] bg-auto font-poppins overflow-x-hidden overflow-y-hidden">
-    <nav className="flex justify-around bg-gray-400/15 text-black py-4 sm:justify-around">
-      
-      <motion.div
-        variants={fadeInUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="flex flex-row-reverse text-center"
-      >
-        <img src="/logo.png" className="w-32 h-32 md:w-40 md:h-40" alt="Logo" />
-      </motion.div>
-
-      <motion.div
-        variants={fadeInText}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="flex items-center md:flex"
-      >
-        <ul className="flex space-x-10 sm:space-x-4">
-          {["Nosotros", "Políticas", "Equipo", "Servicios", "Contacto"].map((item, index) => (
-            <motion.li
-              key={index}
-              className="transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:text-blue-500 cursor-pointer"
-            >
-              {item}
-            </motion.li>
-          ))}
-        </ul>
-      </motion.div>
-
-    </nav>
+    
+    
+    <nav className="flex justify-between items-center bg-gray-400/15 text-black py-4 px-6 md:px-12">
+        <motion.div variants={fadeInUp} initial="hidden" whileInView="visible">
+          <img src="/logo.png" className="w-24 h-24 md:w-32 md:h-32" alt="Logo" />
+        </motion.div>
+        
+        <div className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
+          <button className="text-3xl">☰</button>
+        </div>
+        
+        <motion.div
+          variants={fadeInText}
+          initial="hidden"
+          whileInView="visible"
+          className={`md:flex md:items-center ${menuOpen ? 'block' : 'hidden'}`}>
+          <ul className="flex flex-col md:flex-row md:space-x-6">
+            {["Nosotros", "Políticas", "Equipo", "Servicios", "Contacto"].map((item, index) => (
+              <motion.li key={index} className="py-2 md:py-0 transition hover:text-blue-500 cursor-pointer">
+                {item}
+              </motion.li>
+            ))}
+          </ul>
+        </motion.div>
+      </nav>
 
       <header className=" mx-auto flex items-center h-screen w-screen bg-black/50 ">
         <motion.div
@@ -90,12 +87,12 @@ export default function Home() {
          initial="hidden"
          whileInView="visible"
          viewport={{ once: true, amount: 0.10 }}
-      className="text-center w-full mt-40 h-auto">
-          <div className="text-center mx-auto mb-20">
-          <h2 className="text-4xl ml-20 font-bold">Sobre WL Company</h2>
-          </div>
+      className="text-center w-full mt-20 h-auto px-4">
+          
+          <h2 className="text-3xl font-bold mb-10">Sobre WL Company</h2>
+          
 
-          <div className="grid grid-cols-3 gap-x-8 gap-y-4 place-items-center divide-x-2 divide-blue-800 px-4 items-stretch md:grid-cols-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center  px-4 ">
   <div className="pr-2 h-full flex items-center">
     <p>
       Nos comprometemos a ofrecer soluciones personalizadas que no solo se vean bien y/o atractivas,
@@ -104,14 +101,14 @@ export default function Home() {
   </div>
 
   <div className="flex justify-center items-center h-full pl-20">
-    <img src="/monitor.jpg" className="rounded-full border-4 border-[#EFB810]" />
+    <img src="/monitor.jpg" className="rounded-full border-4 border-[#EFB810]  md:w-60" />
   </div>
 
   <div className="pt-6 pl-8 h-full flex items-center">
-    <ul className="list-disc">
+    <ul className="list-disc text-left">
       <li>Especialistas en la experiencia de usuario</li>
       <li>Responsabilidad y fidelidad con el cliente</li>
-      <li className="-indent-32">Atención de gran calidad</li>
+      <li>Atención de gran calidad</li>
     </ul>
   </div>
 </div>
@@ -121,12 +118,12 @@ export default function Home() {
          initial="hidden"
          whileInView="visible"
          viewport={{ once: true, amount: 0.2 }}
-      className="text-center p-20">
-        <h2 className="text-4xl ml-20 font-bold">Nuestro equipo</h2>
+      className="container mx-auto text-center py-20 px-4">
+        <h2 className="text-3xl font-bold mb-10">Nuestro equipo</h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2">  
-            <div className="relative flex justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">  
+            <div className="relative">
               <img src="/desarrollow.png" className="object-cover w-full h-auto" />
               <div className="absolute bottom-5 left-5 bg-black bg-opacity-50 text-white p-4 rounded-lg">
                 <h2 className="text-xl font-bold">Wozniezka Pizarro Alan</h2>
@@ -137,7 +134,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="relative flex justify-center">
+            <div className="relative">
               <img src="/diseño.jpg" className="object-cover w-full h-auto" />
               <div className="absolute bottom-5 left-5 bg-black bg-opacity-50 text-white p-4 rounded-lg">
                 <h2 className="text-xl font-bold">Nahuel Lera</h2>
@@ -165,7 +162,7 @@ export default function Home() {
         className="container  mx-auto text-center w-full min-h-screen py-20 px-4">
           <h2 className="mt-20 mb-10 text-4xl font-bold">Nuestras políticas de trabajo</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <div className="border-2 border-blue-500 bg-slate-200/50 w-[25rem] transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
+            <div className="border-2 border-blue-500 bg-slate-200/50 p-6 rounded-lg transition transform hover:-translate-y-1 hover:scale-105">
               <img src="/empresarial.jpg" className="w-full h-60 object-cover rounded-lg mb-4"></img>
                 <p className="pt-4 ">
                 Nos esforzamos para comprender las metas de cada cliente, ofreciendo
@@ -175,8 +172,8 @@ export default function Home() {
           </div>
 
 
-          <div className="border-2 border-blue-500 bg-slate-200/50 w-[25rem] transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
-              <img src="/implementos.png" className="w-full h-60 border-b-2 border-blue-500"></img>
+          <div className="border-2 border-blue-500 bg-slate-200/50 p-6 rounded-lg transition transform hover:-translate-y-1 hover:scale-105">
+              <img src="/implementos.png" className="w-full h-60 object-cover rounded-lg mb-4"></img>
                   <p className="pt-4">Estamos actualizados con las últimas tendencias en diseño web,
                   tecnología y herramientas para poder ofrecer las soluciones más
                   innovadoras y eficientes a nuestros clientes</p>
@@ -184,8 +181,8 @@ export default function Home() {
 
 
 
-              <div className="border-2 border-blue-500 bg-slate-200/50 w-[25rem] transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
-              <img src="/reunion.jpg" className="w-full h-60 border-b-2 border-blue-500"></img>
+              <div className="border-2 border-blue-500 bg-slate-200/50 p-6 rounded-lg transition transform hover:-translate-y-1 hover:scale-105">
+              <img src="/reunion.jpg" className="w-full h-60 object-cover rounded-lg mb-4"></img>
                 <p className="pt-4 ">
                 Ofrecemos honorarios correspondientes al trabajo realizado,
                 buscando siempre soluciones que se ajusten al presupuesto de nuestros
@@ -200,9 +197,9 @@ export default function Home() {
          initial="hidden"
          whileInView="visible"
          viewport={{ once: true, amount: 0.5 }}
-       className="grid text-center items-center justify-center w-screen h-screen">
-        <h2 className="text-4xl font-bold pb-20">Servicios</h2>
-        <p className="text-justify">La presencia en internet, a través de la WEB, lo que
+       className="container mx-auto text-center w-full min-h-screen py-20 px-4">
+        <h2 className="text-3xl font-bold mb-10">Servicios</h2>
+        <p className="text-justify mb-10">La presencia en internet, a través de la WEB, lo que
 brinda es visibilidad 24/7, para que potenciales clientes
 conozcan la oferta del negocio y la empresa, sus
 productos e información de la misma en cualquier
@@ -235,7 +232,7 @@ una WEB.</p>
         viewport={{ once: true, amount: 0.5 }}
         className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 items-center p-6 pt-60 pb-60 w-screen ">
 
-  <div className="space-y-4">
+  <div className="space-y-4 md:items-center">
     <h2 className="text-3xl font-bold">Contacto</h2>
     <p className="text-lg">📧 Correo electrónico:</p>
     <p className="text-gray-700">wlcreatorwebdesign@gmail.com</p>
@@ -294,7 +291,7 @@ una WEB.</p>
 
       </content>
       <footer className="w-full bg-black text-white py-10 px-6 grid grid-cols-1 md:grid-cols-2 text-center md:text-left">
-  <div className="p-6">
+  <div className="flex flex-col items-center md:items-start">
     <img src="logo2.jpg" className="w-40 h-40 md:align-middle " alt="Logo" />
     <p className="mx-6">11 6107-2745 <br /> 11 5624-8349</p>
   </div>
