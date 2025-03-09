@@ -17,7 +17,7 @@ export default function Swip() {
         navigation={true}
         pagination={{ clickable: true }}
         modules={[EffectFade, Navigation, Pagination]}
-        className="w-full max-w-screen-lg border-2 border-blue-500"
+        className="w-full max-w-screen-lg border-2 border-blue-500 shadow-2xl shadow-slate-900"
       >
         <SwiperSlide>
           <div className="relative w-full h-[500px] flex items-center justify-center md:h-[500px]">
